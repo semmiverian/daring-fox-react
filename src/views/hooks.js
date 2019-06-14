@@ -57,7 +57,9 @@ export default function Hook() {
   const [data, loading, error] = useApi('get', `https://swapi.co/api/people/${peopleId}`)
 
   return (
-    <div>
+    <>
+      <h1>masa bisa sih?</h1>
+      <div>
       <h1>Noel bersin bersin {state}</h1>
       {
         loading && <h3>Sebentar ya mas lagi diproses</h3>
@@ -85,5 +87,6 @@ export default function Hook() {
       <h4>{peopleId}</h4>
       <button onClick={e => setPeopleId(peopleId + 1)}>Increment People Id</button>
     </div>
+    </>
   )
 }
