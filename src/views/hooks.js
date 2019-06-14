@@ -3,21 +3,7 @@ import axios from 'axios'
 
 // Custom Hooks
 function useSwapiApi(peopleId) {
-
-}
-
-export default function Hook() {
-  const [state, setState] = useState()
-
-  const [name, setName] = useState('Kosasih')
-  const [gender, setGender] = useState('Questionable')
-  const [age, setAge] = useState(17)
   const [data, setData] = useState({})
-  const [peopleId, setPeopleId] = useState(1)
-
-  const wrapperSetName = e => {
-    setName(e.target.value)
-  }
 
   useEffect(() => {
     console.log('auououoouo')
@@ -29,10 +15,61 @@ export default function Hook() {
     // hit APi
   }, [peopleId])
 
+  return [
+    data
+  ]
+}
+
+function useApi(method, url) {
+  // data, error, loading
+  const [data, setData] = useState({})
+  const [error, setError] = useState({})
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    axios({
+      method,
+      url
+    })
+    .then(({data}) => {
+      setData(data)
+    })
+    .catch(err => {
+      setError(err)
+    })
+    .finally(() => setLoading(false))
+  }, [url])
+
+  return [data, loading, error]
+}
+
+export default function Hook() {
+  const [state, setState] = useState()
+
+  const [name, setName] = useState('Kosasih')
+  const [gender, setGender] = useState('Questionable')
+  const [age, setAge] = useState(17)
+  const [peopleId, setPeopleId] = useState(1)
+
+  // const [data] = useSwapiApi(peopleId)
+
+  const [data, loading, error] = useApi('get', `https://swapi.co/api/people/${peopleId}`)
+
   return (
     <div>
       <h1>Noel bersin bersin {state}</h1>
-      <h3>{JSON.stringify(data)}</h3>
+      {
+        loading && <h3>Sebentar ya mas lagi diproses</h3>
+      }
+
+      {
+        !loading && data && Object.keys(data).length !== 0 && <h3>{JSON.stringify(data)}</h3>
+      }
+
+      {/* {
+        !loading && error && <h3>{JSON.stringify(error)}</h3>
+      } */}
       {/* <h3>{gender}</h3>
       <h3>{age}</h3> */}
 
