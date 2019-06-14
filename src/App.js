@@ -8,6 +8,7 @@ import About from './views/About'
 import Home from './views/Home'
 import Swapi from './views/Swapi'
 import Counter from './views/Counter'
+import Hooks from './views/hooks'
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
         <Link to="/todo/ab">Todo Ab</Link> |
         <Link to="/swapi">Shopee</Link> |
         <Link to="/counter">Counter</Link> |
+        <Link to="/hooks">Hooks</Link> |
 
         <Switch>
           <Route path="/" exact component={Home} />
@@ -28,6 +30,7 @@ class App extends Component {
           <Route path="/about" component={About} />
           <Route path="/swapi" component={Swapi} />
           <Route path="/counter" component={Counter} />
+          <Route path="/hooks" component={Hooks} />
         </Switch>
       </Router>
     </Provider>
